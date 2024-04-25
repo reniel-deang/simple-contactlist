@@ -1,0 +1,19 @@
+<?php
+include 'dbcon.php';
+
+
+$sql = "SELECT * FROM information";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $data[] = $row;
+
+  }
+  $jsonData=json_encode($data);
+  echo $jsonData;
+
+}
+$conn->close();
+?>

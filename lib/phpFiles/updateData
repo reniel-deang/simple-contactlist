@@ -1,0 +1,18 @@
+<?php
+include 'dbcon.php';
+
+$numberid = $_POST['numberid'];
+$names = $_POST['names'];
+$numbers = $_POST['numbers'];
+$email = $_POST['email'];
+
+$sql = "UPDATE information SET names='$names', numbers='$numbers', email='$email' WHERE numberid='$numberid'";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Record updated successfully";
+} else {
+  echo "Error updating record: " . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
