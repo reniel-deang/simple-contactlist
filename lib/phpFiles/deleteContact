@@ -1,0 +1,15 @@
+<?php
+include 'dbcon.php';
+
+$numberid = $_POST['numberid'];
+// sql to delete a record
+$sql = "DELETE FROM information WHERE numberid='$numberid' ";
+
+if ($conn->query($sql) === TRUE) {
+  echo "Record deleted successfully";
+} else {
+  echo "Error deleting record: " . $conn->error;
+}
+
+$conn->close();
+?>

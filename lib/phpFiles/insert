@@ -1,0 +1,18 @@
+<?php
+include "dbcon.php";
+
+$names = $_POST['names'];
+$numbers = $_POST['numbers'];
+$email = $_POST['email'];
+
+$sql = "INSERT INTO information (names, numbers, email)
+VALUES ('$names', '$numbers', '$email')";
+
+if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>
