@@ -27,6 +27,22 @@ class _HomepageState extends State<Homepage> {
 
   List<dynamic> contactList = [];
 
+  Future<void>searchData() async {
+    final uri = ip+'searchData.php';
+
+    Map<String, dynamic> data = {
+      "search" : _search.text,
+
+    };
+    final response = await http.post(
+      Uri.parse(uri),
+      body: data,
+    );
+    setState(() {
+      contactList = jsonDecode(response.body);
+    });
+  }
+
   Future<void> deleteContact(String numberid) async {
     final uri = ip + 'deleteContact.php';
     Map<String, dynamic> data = {
@@ -49,23 +65,6 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  Future<void>searchData() async {
-    final uri = ip+'searchData.php';
-
-    Map<String, dynamic> data = {
-      "search" : _search.text,
-
-    };
-    final response = await http.post(
-      Uri.parse(uri),
-      body: data,
-    );
-    setState(() {
-      contactList = jsonDecode(response.body);
-    });
-
-    print(contactList);
-  }
 
   @override
   void initState() {
@@ -82,16 +81,24 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: 130,
         title: Column(
           children: [
+
             Text(
               'Contacts',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 10,),
             TextField(
               onChanged: (text){searchData();},
               controller: _search,
+              decoration: InputDecoration(
+                  hintText: '⌕ Search Contact',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)
+                  )
+              ),
             ),
 
           ],
